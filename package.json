@@ -1,0 +1,19 @@
+{
+  "name": "catan-automation",
+  "version": "1.0.0",
+  "description": "Automate game board for Catan on TableTob Playground",
+  "main": "index.js",
+  "scripts": {
+    "test": "run test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Kprince1101/catan-automation.git"
+  },
+  "author": "_SK6",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Kprince1101/catan-automation/issues"
+  },
+  "homepage": "https://github.com/Kprince1101/catan-automation#readme"
+}
