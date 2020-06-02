@@ -1,4 +1,42 @@
-const { globalEvents, world } = require("@tabletop-playground/api");
+const { globalEvents, world } = require('@tabletop-playground/api');
+const {
+  boardSnapPoints,
+  resourceTiles,
+  sandTile,
+  robberPiece,
+} = require('./constants');
+
+const getRandomInteger = (max) => {
+  return Math.floor(Math.random() * Math.floor(max));
+};
+
+const placeObjectAtRandomCoordinate = (resourceTile, coordinates) => {
+  const randomCoordinateIndex = getRandomInteger(coordinates.length);
+  const tile = world.createObjectFromTemplate(resourceTile.guid);
+  tile.setPosition(coordinates[randomCoordinateIndex], 1);
+  coordinates.splice(randomCoordinateIndex, 1);
+  tile.snap();
+  tile.toggleLock();
+  return tile;
+};
+
+const coordinates = boardSnapPoints;
+const resourceCoordinates = [];
+resourceTiles.map((resourceTile) => {
+  console.log(`Randomly placing ${resourceTile.name} tiles...`);
+  for (let i = 0; i < resourceTile.number; i++) {
+    const tile = placeObjectAtRandomCoordinate(resourceTile, coordinates);
+    resourceCoordinates.push(tile.getPosition());
+  }
+});
+
+console.log(`Placing ${sandTile.name} last.`);
+const sandTileObject = placeObjectAtRandomCoordinate(sandTile, coordinates);
+
+console.log('Placing robber piece.');
+world
+  .createObjectFromTemplate(robberPiece.guid)
+  .setPosition(sandTileObject.getPosition());
 
 const sendGlobalMessage = (message) => {
   world.getAllPlayers().map((x) => x.showMessage(message));
@@ -29,13 +67,15 @@ globalEvents.onDiceRolled.add((player, dice) => {
     new Vector(64.885, -77.603, 78.164),
     new Vector(62.994, -78.686, 78.164),
   ];
-  
-  // should prolly change this to .reduce...
-  let total = 0;
-  const indexArr = dice.map((x) => x.getCurrentFaceIndex());
-  indexArr.map((ind) => (total += ind + 1));
+
+  const total = dice
+    .map((d) => d.getCurrentFaceIndex())
+    .reduce((previous, current) => {
+      return previous + current + 1;
+    }, 0);
+
   sendGlobalMessage(
-    `${player.getName()} rolled a ${total} ${total === 7 ? " :(" : ""}`
+    `${player.getName()} rolled a ${total} ${total === 7 ? ' :(' : ''}`
   );
 
   dice.map((d, i) => {
