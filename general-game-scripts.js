@@ -1,42 +1,61 @@
-const { globalEvents, world } = require('@tabletop-playground/api');
+const { globalEvents, world, Vector } = require('@tabletop-playground/api');
 const {
   boardSnapPoints,
+  reverseBoardSnapPoints,
   resourceTiles,
   sandTile,
   robberPiece,
+  numberTokens,
 } = require('./constants');
 
 const getRandomInteger = (max) => {
   return Math.floor(Math.random() * Math.floor(max));
 };
 
-const placeObjectAtRandomCoordinate = (resourceTile, coordinates) => {
-  const randomCoordinateIndex = getRandomInteger(coordinates.length);
+const coordinateIndexes = [];
+for (let i = 0; i < Object.values(boardSnapPoints).length; i++) {
+  coordinateIndexes.push(i);
+}
+
+const placeObjectAtRandomCoordinate = (resourceTile) => {
+  const randomIndex = getRandomInteger(coordinateIndexes.length);
+  const randomCoordinateIndex = coordinateIndexes[randomIndex];
+
   const tile = world.createObjectFromTemplate(resourceTile.guid);
-  tile.setPosition(coordinates[randomCoordinateIndex], 1);
-  coordinates.splice(randomCoordinateIndex, 1);
+  tile.setPosition(boardSnapPoints[randomCoordinateIndex], 1);
+  coordinateIndexes.splice(randomIndex, 1);
   tile.snap();
   tile.toggleLock();
   return tile;
 };
 
-const coordinates = boardSnapPoints;
-const resourceCoordinates = [];
+// Place all resource tiles at random spots
 resourceTiles.map((resourceTile) => {
-  console.log(`Randomly placing ${resourceTile.name} tiles...`);
   for (let i = 0; i < resourceTile.number; i++) {
-    const tile = placeObjectAtRandomCoordinate(resourceTile, coordinates);
-    resourceCoordinates.push(tile.getPosition());
+    placeObjectAtRandomCoordinate(resourceTile);
   }
 });
 
-console.log(`Placing ${sandTile.name} last.`);
-const sandTileObject = placeObjectAtRandomCoordinate(sandTile, coordinates);
+// Place and mark the position of the sand tile
+const sandTileIndex = coordinateIndexes[0];
+const sandTileObject = placeObjectAtRandomCoordinate(sandTile);
 
-console.log('Placing robber piece.');
+// Place the robber on the sand tile
 world
   .createObjectFromTemplate(robberPiece.guid)
   .setPosition(sandTileObject.getPosition());
+
+// Place the number tokens, skipping forward
+// one index after the sand tile is reached
+numberTokens.map((guid, index) => {
+  const token = world.createObjectFromTemplate(guid);
+  const reversedIndex =
+    reverseBoardSnapPoints[index < sandTileIndex ? index : index + 1];
+  const coordinate = boardSnapPoints[reversedIndex];
+  token.setPosition(new Vector(coordinate[0], coordinate[1], 90));
+  token.snap();
+  token.toggleLock();
+});
 
 const sendGlobalMessage = (message) => {
   world.getAllPlayers().map((x) => x.showMessage(message));
