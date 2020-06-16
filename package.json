@@ -1,22 +1,22 @@
 {
-  "name": "catan-automation-magpy",
-  "version": "1.0.0",
-  "description": "Catan for Tabletop Playground with scripting. Fork of https://github.com/Kprince1101/catan-automation.",
-  "main": "index.js",
-  "scripts": {
-    "test": "run test"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/green-s/catan-automation.git"
-  },
-  "author": "mag.py",
-  "contributors": [
-    "_SK6"
-  ],
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/green-s/catan-automation/issues"
-  },
-  "homepage": "https://github.com/green-s/catan-automation#readme"
+    "name": "catan-automation-magpy",
+    "version": "1.0.0",
+    "description": "Catan for Tabletop Playground with scripting. Fork of https://github.com/Kprince1101/catan-automation.",
+    "main": "index.js",
+    "scripts": {
+        "test": "run test"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/green-s/catan-automation.git"
+    },
+    "author": "mag.py",
+    "contributors": [
+        "_SK6"
+    ],
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/green-s/catan-automation/issues"
+    },
+    "homepage": "https://github.com/green-s/catan-automation#readme"
 }
