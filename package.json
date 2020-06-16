@@ -1,19 +1,22 @@
 {
-  "name": "catan-automation",
+  "name": "catan-automation-magpy",
   "version": "1.0.0",
-  "description": "Automate game board for Catan on TableTob Playground",
+  "description": "Catan for Tabletop Playground with scripting. Fork of https://github.com/Kprince1101/catan-automation.",
   "main": "index.js",
   "scripts": {
     "test": "run test"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Kprince1101/catan-automation.git"
+    "url": "git+https://github.com/green-s/catan-automation.git"
   },
-  "author": "_SK6",
+  "author": "mag.py",
+  "contributors": [
+    "_SK6"
+  ],
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/Kprince1101/catan-automation/issues"
+    "url": "https://github.com/green-s/catan-automation/issues"
   },
-  "homepage": "https://github.com/Kprince1101/catan-automation#readme"
+  "homepage": "https://github.com/green-s/catan-automation#readme"
 }
