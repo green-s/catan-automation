@@ -1,14 +1,15 @@
 {
-    "name": "catan-automation-magpy",
+    "name": "catan-scripted",
     "version": "1.0.0",
-    "description": "Catan for Tabletop Playground with scripting. Fork of https://github.com/Kprince1101/catan-automation.",
+    "description": "Catan for Tabletop Playground with scripting. Fork of https://github.com/Kprince1101/catan-scripted.",
     "main": "index.js",
     "scripts": {
-        "test": "run test"
+        "build": "tsc",
+        "clean": "rimraf out"
     },
     "repository": {
         "type": "git",
-        "url": "git+https://github.com/green-s/catan-automation.git"
+        "url": "git+https://github.com/green-s/catan-scripted.git"
     },
     "author": "mag.py",
     "contributors": [
@@ -16,7 +17,14 @@
     ],
     "license": "ISC",
     "bugs": {
-        "url": "https://github.com/green-s/catan-automation/issues"
+        "url": "https://github.com/green-s/catan-scripted/issues"
     },
-    "homepage": "https://github.com/green-s/catan-automation#readme"
+    "homepage": "https://github.com/green-s/catan-scripted#readme",
+    "devDependencies": {
+        "@typescript-eslint/eslint-plugin": "^3.3.0",
+        "@typescript-eslint/parser": "^3.3.0",
+        "eslint": "^7.2.0",
+        "rimraf": "^3.0.2",
+        "typescript": "^3.9.5"
+    }
 }
